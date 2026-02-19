@@ -28,7 +28,9 @@ public class UserController {
 //   }
 
   @PostMapping("/signup")
-  public ResponseEntity<ApiResponse<Long>> signup(@Valid @RequestBody UserCreateForm userCreateForm) {
+  public ResponseEntity<ApiResponse<Long>> signup(
+          @Valid @RequestBody UserCreateForm userCreateForm) {
+            
       Long userId = userService.create(userCreateForm);
       
       return ResponseEntity.ok(ApiResponse.success(userId));
