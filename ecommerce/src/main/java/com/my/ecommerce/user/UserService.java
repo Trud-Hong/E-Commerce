@@ -31,7 +31,10 @@ public class UserService {
                     .email(userCreateForm.getEmail())
                     .password(passwordEncoder.encode(userCreateForm.getPassword1()))
                     .name(userCreateForm.getName())
+                    .role(UserRole.USER)
                     .build();
+    System.out.println("===email: " + user.getEmail());
+    System.out.println("===role: " + user.getRole());
 
     userRepository.save(user);
 
