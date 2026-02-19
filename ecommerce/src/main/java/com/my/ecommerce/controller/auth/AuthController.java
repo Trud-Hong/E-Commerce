@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.ecommerce.auth.AuthService;
 import com.my.ecommerce.auth.LoginRequest;
 import com.my.ecommerce.auth.LoginResponse;
-import com.my.ecommerce.config.JwtProvider;
 import com.my.ecommerce.global.ApiResponse;
 
 import jakarta.validation.Valid;

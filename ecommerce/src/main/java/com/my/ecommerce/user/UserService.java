@@ -33,8 +33,6 @@ public class UserService {
                     .name(userCreateForm.getName())
                     .role(UserRole.USER)
                     .build();
-    System.out.println("===email: " + user.getEmail());
-    System.out.println("===role: " + user.getRole());
 
     userRepository.save(user);
 

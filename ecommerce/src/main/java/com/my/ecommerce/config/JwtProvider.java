@@ -33,12 +33,17 @@ public class JwtProvider {
   public String createToken(Authentication authentication) {
 
     String email = authentication.getName();
+    String role = authentication.getAuthorities()
+                    .iterator()
+                    .next()
+                    .getAuthority();
 
     Date now = new Date();
     Date expiry = new Date(now.getTime() + expiration);
 
     return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)

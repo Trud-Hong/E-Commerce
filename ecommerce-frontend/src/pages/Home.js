@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../api/productApi';
+import Footer from '../components/Footer';
 
 function Home(){
   const [products, setProducts] = useState([]);
@@ -11,7 +11,10 @@ function Home(){
   useEffect(() => {
     getProducts()
       .then((response) => {
-        setProducts(response.data);
+        const productArray = Array.isArray(response.data.data?.content)
+        ? response.data.data.content
+        :[];
+        setProducts(productArray)
         setLoding(false);
       })
       .catch((error) => {
@@ -30,7 +33,6 @@ function Home(){
   
   return (
     <>
-      <Navbar/>
       <Header/>
       
       <section className='py-5'>
@@ -42,6 +44,8 @@ function Home(){
           </div>
         </div>
       </section>
+
+      <Footer/>
     </>
   );
 };
