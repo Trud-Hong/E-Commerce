@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,8 +36,8 @@ public class SecurityConfig {
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**", "/api/user/**").permitAll()
-            .anyRequest().authenticated()
+            .requestMatchers("/api/products/create").hasRole("SELLER")
+            .anyRequest().permitAll()
         )
         .userDetailsService(userDetailService)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -71,6 +70,7 @@ public class SecurityConfig {
     return source;
   }
 
+  //AuthenticationManager의 DaoAuthenticationProvider 직접 명시
   @Bean
   public AuthenticationManager authenticationManager() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
