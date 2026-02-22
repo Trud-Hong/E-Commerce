@@ -36,16 +36,21 @@ public class CartService {
     Product product = productRepository.findById(productId)
           .orElseThrow(() -> new IllegalArgumentException("상품 없음"));
     
-    if(product.getStock() < quantity) {
-      throw new OutOfStockException("재고 부족");
-    }
-
     Optional<CartItem> existingItem = 
           cartItemRepository.findByCartAndProduct(cart, product);
 
     if(existingItem.isPresent()) {
-      existingItem.get().increaseQuantity(quantity);
+      CartItem cartItem = existingItem.get();
+      int newQuantity = cartItem.getQuantity() + quantity;
+
+      if(product.getStock() < newQuantity){
+        throw new OutOfStockException("재고 부족");
+      }
+      cartItem.increaseQuantity(newQuantity);
     }else {
+      if(product.getStock() < quantity) {
+        throw new OutOfStockException("재고 부족");
+      }
       CartItem cartItem = new CartItem(cart, product, quantity);
       cartItemRepository.save(cartItem);
     }

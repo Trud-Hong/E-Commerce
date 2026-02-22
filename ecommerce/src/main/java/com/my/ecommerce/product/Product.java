@@ -56,6 +56,8 @@ public class Product {
   @Version
   private Long version = 0L;
 
+  private String imageUrl;
+
   @PrePersist
   public void prePersist() {
     this.createdAt = LocalDateTime.now();
