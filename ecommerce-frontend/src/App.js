@@ -15,9 +15,9 @@ import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <CartProvider>
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <CartProvider>
+        <BrowserRouter>
         <Navbar/>
         <Routes>
           <Route path="/signup" element={<Signup />} />
@@ -31,9 +31,9 @@ function App() {
           <Route path="/payment/fail" element={<FailPage/>}/>
           <Route path="/cart" element={<Cart/>}/>
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
-    </CartProvider>
+        </BrowserRouter>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

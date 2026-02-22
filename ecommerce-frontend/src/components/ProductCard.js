@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const ProductCard = ({product}) => {
 
     const navigate = useNavigate();
     const { addToCart } = useCart();
+    const { isLoggedIn } = useAuth();
 
     const handleClick = () => {
         navigate(`/products/${product.id}`);
@@ -13,6 +15,12 @@ const ProductCard = ({product}) => {
 
     const handleAddToCart = async (e) => {
         e.stopPropagation();
+
+        if(!isLoggedIn){
+            alert("로그인이 필요합니다.");
+            navigate("/login");
+            return;
+        }
     
         try {
             await addToCart(product.id,1);

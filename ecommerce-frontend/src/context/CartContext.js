@@ -1,12 +1,23 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import api from '../api/axios';
 import { addCartItem, getCart } from '../api/cartApi';
+import { useAuth } from './AuthContext';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
   const [cartCount, setCartCount] = useState(0);
+  const { isLoggedIn } = useAuth();
+
+
+  //로그인 상태 자동 반영
+  useEffect(() => {
+    if(isLoggedIn){
+      fetchCart();
+    }else{
+      setCartCount(0);
+    }
+  },[isLoggedIn]);
 
   //장바구니 조회
   const fetchCart = async () => {
@@ -36,8 +47,12 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCart();
-  },[]);
+    if(isLoggedIn){
+      fetchCart();
+    }else{
+      setCartCount(0);
+    }
+  },[isLoggedIn]);
 
   return (
     <CartContext.Provider value={{

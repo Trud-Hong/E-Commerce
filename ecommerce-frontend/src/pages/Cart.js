@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import api from "../api/axios" ;
+import { useCart } from '../context/CartContext';
 
 const clientKey = "test_ck_Poxy1XQL8RxwekyXja9lV7nO5Wml"
 
 function Cart(){
   const [cart, setCart] = useState(null);
+  const { setCartCount } = useCart();
 
   useEffect(() => {
     fetchCart();
   },[]);
-
+  //장바구니 생성
   const fetchCart = async () => {
     const res = await api.get("/api/cart", {
       withCredentials: true
     });
     setCart(res.data.data);
+    const totalQuantity = res.data.data.items.reduce((sum, item) => sum + item.quantity, 0);
+    setCartCount(totalQuantity);
   };
 
+  //장바구니 아이템 수량 변경
   const updateQuantitiy = async (cartItemId, quantity) => {
-    await api.patch(`/api/cart/items/${cartItemId}`, null, {
+    try {
+      await api.patch(`/api/cart/items/${cartItemId}`, null, {
       params: {quantity},
       withCredentials: true,
     });
-    fetchCart();
+    fetchCart();  
+    } catch (error) {
+      if(error.response?.data?.message === "재고 부족"){
+        alert("재고가 부족합니다.");
+      }else{
+        alert("수량 변경 실패");
+      }
+    }
+    
   };
-
+  //장바구니 삭제
   const removeItem = async (cartItemId) => {
     await api.delete(`/api/cart/items/${cartItemId}`,{
       withCredentials: true,
@@ -78,34 +92,53 @@ function Cart(){
   if(!cart) return <div>로딩중...</div>
 
   return (
-    <div>
-      <h2>장바구니</h2>
+    <div className='container mt-5'>
+      <h2 className='mb-4'>장바구니</h2>
 
       {cart.items.length === 0 ? (
-        <p>장바구니가 비어있습니다.</p>
+        <div className='alert alet-secondary text-center'>
+          장바구니가 비어있습니다.
+        </div>
       ) : (
         <>
           {cart.items.map((item) => (
-            <div key={item.cartItemId}>
-              <h4>{item.productName}</h4>
-              <p>가격: {item.price}원</p>
-              <p>
-                수량:
-                <button onClick={() => updateQuantitiy(item.cartItemId, item.quantity - 1)}>-</button>
-                {item.quantity}
-                <button onClick={() => updateQuantitiy(item.cartItemId, item.quantity + 1)}>+</button>
-              </p>
-              <p>합계: {item.totalPrice}원</p>
-              <button onClick={() => removeItem(item.cartItemId)}>삭제</button>
-              <hr/>
+            <div key={item.cartItemId} className='card mb-3 shadow-sm'>
+              <div className='row g-0 align-items-center'>
+                {/* 상품 이미지 */}
+                <div className='col-md-3 text-center p-3'>
+                  <img src={item.imageUrl} alt={item.name} className='img-fluid rounded' style={{maxHeight: "120px"}}/>
+                </div>
+                {/* 상품 정보 */}
+                <div className='col-md-6'>
+                  <div className='card-body'>
+                    <h5 className='card-title'>{item.name}</h5>
+                    <p className='card-text text-muted'>가격: {item.price}원</p>
+                    <div className='d-flex align-items-center'>
+                      <button className='btn btn-outline-secondary btn-sm' onClick={() => updateQuantitiy(item.cartItemId, item.quantity - 1)}>-</button>
+                      <span className='mx-3 fw-bold'>{item.quantity}</span>
+                      <button className='btn btn-outline-secondary btn-sm' onClick={() => updateQuantitiy(item.cartItemId, item.quantity + 1)}>+</button>
+                    </div>
+                  </div>
+                </div>
+              {/* 합계 + 삭제 */}
+              </div>
+              <div className='col-md-3 text-center'>
+                <div className='card-body'>
+                  <h6 className='fw-bold'>
+                    {item.totalPrice.toLocaleString()}원
+                  </h6>
+                  <button className='btn btn-danger btn-sm mt-2' onClick={() => removeItem(item.cartItemId)}>삭제</button>
+                </div>
+              </div>
             </div>
           ))}
-
-          <h3>총 금액: {cart.totalAmount}원</h3>
-
-          <button onClick={handlePayment}>
-            주문하기
-          </button>
+          {/* 총 금액 */}
+          <div className='card p-4 mt-4 shadow-sm'>
+            <h4>총 금액: {cart.totalAmount.toLocaleString()}원</h4>
+          </div>
+            <button className='btn btn-dark mt-3' onClick={handlePayment}>
+              주문하기
+            </button>
         </>
       )}
     </div>
