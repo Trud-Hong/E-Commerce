@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.my.ecommerce.cart.Cart;
 import com.my.ecommerce.cart.CartRepository;
 import com.my.ecommerce.exception.BusinessException;
 import com.my.ecommerce.exception.DataNotFoundException;
@@ -35,6 +36,7 @@ public class UserService {
                     .name(userCreateForm.getName())
                     .role(UserRole.USER)
                     .build();
+    user.createCart();
 
     userRepository.save(user);
 

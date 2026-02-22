@@ -3,7 +3,7 @@ package com.my.ecommerce.cart;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.my.ecommerce.cartItem.CartItem;
+import com.my.ecommerce.cart.cartItem.CartItem;
 import com.my.ecommerce.user.User;
 
 import jakarta.persistence.CascadeType;

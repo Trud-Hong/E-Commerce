@@ -1,7 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
-const Navbar = () => {
+function Navbar(){
+
     const {isLoggedIn, logout, user} = useAuth();
+    const { cartCount } = useCart();
 
   return (
     <div>
@@ -34,13 +38,13 @@ const Navbar = () => {
                         </ul>
                     </li>
                 </ul>
-                <form className="d-flex">
-                    <button className="btn btn-outline-dark" type="submit">
-                        <i className="bi-cart-fill me-1"></i>
-                        Cart
-                        <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
+                <Link to="/cart" className="btn btn-outline-dark">
+                    <i className='bi-cart-fill me-1'></i>
+                    장바구니
+                    <span className='badge bg-dark text-white ms-1 rounded-pitt'>
+                        {cartCount}
+                    </span>
+                </Link>
             </div>
         </div>
       </nav>

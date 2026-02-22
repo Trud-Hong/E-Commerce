@@ -37,6 +37,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/products/create").hasRole("SELLER")
+            .requestMatchers("/api/orders/**").authenticated()
+            .requestMatchers("/api/payments/**").authenticated()
+            .requestMatchers("/api/cart/**").authenticated()
+            .requestMatchers("/cart/**").authenticated()
             .anyRequest().permitAll()
         )
         .userDetailsService(userDetailService)
