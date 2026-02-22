@@ -1,4 +1,4 @@
-package com.my.ecommerce.cartItem;
+package com.my.ecommerce.cart.cartItem;
 
 import com.my.ecommerce.cart.Cart;
 import com.my.ecommerce.product.Product;

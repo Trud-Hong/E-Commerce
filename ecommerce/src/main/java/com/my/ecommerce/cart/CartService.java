@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.my.ecommerce.cartItem.CartItem;
-import com.my.ecommerce.cartItem.CartItemRepository;
-import com.my.ecommerce.cartItem.CartItemResponse;
+import com.my.ecommerce.cart.cartItem.CartItem;
+import com.my.ecommerce.cart.cartItem.CartItemRepository;
+import com.my.ecommerce.cart.cartItem.CartItemResponse;
 import com.my.ecommerce.exception.OutOfStockException;
 import com.my.ecommerce.product.Product;
 import com.my.ecommerce.product.ProductRepository;
@@ -94,7 +94,7 @@ public class CartService {
     User user = userRepository.findById(userId)
           .orElseThrow(() -> new IllegalArgumentException("회원 없음"));
     Cart cart = cartRepository.findByUser(user)
-          .orElseGet(() -> cartRepository.save(new Cart(user)));
+          .orElseThrow(() -> new IllegalArgumentException("장바구니 없음"));
     
     List<CartItemResponse> items = cart.getCartItems()
         .stream()

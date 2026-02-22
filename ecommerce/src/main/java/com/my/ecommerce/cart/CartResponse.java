@@ -2,7 +2,7 @@ package com.my.ecommerce.cart;
 
 import java.util.List;
 
-import com.my.ecommerce.cartItem.CartItemResponse;
+import com.my.ecommerce.cart.cartItem.CartItemResponse;
 
 import lombok.Builder;
 import lombok.Getter;

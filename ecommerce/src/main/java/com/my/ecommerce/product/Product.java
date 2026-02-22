@@ -2,6 +2,7 @@ package com.my.ecommerce.product;
 
 import java.time.LocalDateTime;
 
+import com.my.ecommerce.exception.OutOfStockException;
 import com.my.ecommerce.user.User;
 
 import jakarta.persistence.Column;
@@ -13,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,6 +53,9 @@ public class Product {
 
   private LocalDateTime updatedAt;
 
+  @Version
+  private Long version = 0L;
+
   @PrePersist
   public void prePersist() {
     this.createdAt = LocalDateTime.now();
@@ -62,6 +67,17 @@ public class Product {
     this.price = price;
     this.stock = stock;
     this.updatedAt = LocalDateTime.now();
+  }
+
+  public void decreaseStock(int quantity) {
+    if(this.stock < quantity) {
+      throw new OutOfStockException("재고 부족");
+    }
+    this.stock -= quantity;
+  }
+
+  public void increaseStock(int quantity){
+    this.stock += quantity;
   }
 
 }

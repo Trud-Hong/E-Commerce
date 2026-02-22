@@ -1,4 +1,4 @@
-package com.my.ecommerce.cartItem;
+package com.my.ecommerce.cart.cartItem;
 
 import lombok.Builder;
 import lombok.Getter;
