@@ -2,7 +2,9 @@ package com.my.ecommerce.product;
 
 import java.time.LocalDateTime;
 
-import com.my.ecommerce.exception.OutOfStockException;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.my.ecommerce.global.exception.OutOfStockException;
 import com.my.ecommerce.user.User;
 
 import jakarta.persistence.Column;
@@ -56,6 +58,7 @@ public class Product {
   @Version
   private Long version = 0L;
 
+  @Column
   private String imageUrl;
 
   @PrePersist
@@ -80,6 +83,10 @@ public class Product {
 
   public void increaseStock(int quantity){
     this.stock += quantity;
+  }
+
+  public void changeImage(String imageUrl){
+    this.imageUrl = imageUrl;
   }
 
 }

@@ -4,6 +4,7 @@ import api from "../api/axios";
 
 export default function ProductCreateForm() {
   const navigate = useNavigate();
+  const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -20,9 +21,19 @@ export default function ProductCreateForm() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await api.post(
+
+      const formData = new FormData();
+
+      formData.append(
+        "product",
+        new Blob([JSON.stringify(form)], {type: "application/json"})
+      );
+
+      formData.append("image", image);
+
+      await api.post(
         "/api/products/create",
-        form,
+        formData,
         {headers: {Authorization: `Bearer ${token}`}}
       );
       alert("상풍 등록 완료!");
@@ -62,6 +73,11 @@ export default function ProductCreateForm() {
                   <label className="form-label">재고</label>
                   <input type="number" name="stock" className="form-control"
                   placeholder="재고 수량" value={form.stock} onChange={handleChange} required/>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">상품 이미지</label>
+                  <input type="file" className="form-control" accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])} required/>
                 </div>
                 <button type="submit" className="btn btn-dark fw-bold">등록</button>
               </form>

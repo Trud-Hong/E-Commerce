@@ -1,4 +1,4 @@
-package com.my.ecommerce.exception;
+package com.my.ecommerce.global.exception;
 
 public class BusinessException extends RuntimeException {
 

@@ -106,7 +106,7 @@ function Cart(){
               <div className='row g-0 align-items-center'>
                 {/* 상품 이미지 */}
                 <div className='col-md-3 text-center p-3'>
-                  <img src={item.imageUrl} alt={item.name} className='img-fluid rounded' style={{maxHeight: "120px"}}/>
+                  <img src={item.imageUrl ? `http://localhost:8080${item.imageUrl}` : ''} alt={item.name} className='img-fluid rounded' style={{maxHeight: "120px"}}/>
                 </div>
                 {/* 상품 정보 */}
                 <div className='col-md-6'>

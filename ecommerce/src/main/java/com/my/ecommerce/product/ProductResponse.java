@@ -15,6 +15,7 @@ public class ProductResponse {
   private int price;
   private int stock;
   private String sellerName;
+  private String imageUrl;
   private LocalDateTime createdAt;
 
   public static ProductResponse from(Product product) {
@@ -25,6 +26,7 @@ public class ProductResponse {
             .price(product.getPrice())
             .stock(product.getStock())
             .sellerName(product.getSeller().getName())
+            .imageUrl(product.getImageUrl())
             .build();
   }
 

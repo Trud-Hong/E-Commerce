@@ -6,9 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.my.ecommerce.cart.Cart;
 import com.my.ecommerce.cart.CartRepository;
 import com.my.ecommerce.cart.cartItem.CartItem;
-import com.my.ecommerce.exception.OutOfStockException;
+import com.my.ecommerce.global.exception.OutOfStockException;
 import com.my.ecommerce.order.orderItem.OrderItem;
-import com.my.ecommerce.order.orderItem.OrderItemRepository;
 import com.my.ecommerce.product.Product;
 import com.my.ecommerce.user.User;
 import com.my.ecommerce.user.UserRepository;
@@ -22,7 +21,6 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final CartRepository cartRepository;
   private final UserRepository userRepository;
-  private final OrderItemRepository orderItemRepository;
 
 
   //주문 생성 로직
