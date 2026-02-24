@@ -1,4 +1,4 @@
-package com.my.ecommerce.exception;
+package com.my.ecommerce.global.exception;
 
 public class OutOfStockException extends RuntimeException {
   public OutOfStockException(String message) {

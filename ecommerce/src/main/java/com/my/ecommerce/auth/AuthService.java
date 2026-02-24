@@ -5,7 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.my.ecommerce.config.JwtProvider;
+import com.my.ecommerce.global.config.JwtProvider;
 
 import lombok.RequiredArgsConstructor;
 

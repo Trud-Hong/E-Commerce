@@ -9,24 +9,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.my.ecommerce.cart.Cart;
 import com.my.ecommerce.cart.CartRepository;
-import com.my.ecommerce.exception.OutOfStockException;
 import com.my.ecommerce.order.Order;
 import com.my.ecommerce.order.OrderRepository;
 import com.my.ecommerce.order.OrderStatus;
-import com.my.ecommerce.order.orderItem.OrderItem;
-import com.my.ecommerce.product.Product;
 import com.my.ecommerce.product.StockService;
 
-import jakarta.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 
 @Service

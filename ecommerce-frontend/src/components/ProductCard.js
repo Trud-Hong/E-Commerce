@@ -36,7 +36,7 @@ const ProductCard = ({product}) => {
           <div className="card h-100">
               {/* Product image */}
               <img className="card-img-top" 
-              src={product.imageUrl} 
+              src={product.imageUrl ? `http://localhost:8080${product.imageUrl}` : ''} 
               alt={product.name} />
               {/* Product details */}
               <div className="card-body p-4">

@@ -6,10 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.my.ecommerce.cart.Cart;
-import com.my.ecommerce.cart.CartRepository;
-import com.my.ecommerce.exception.BusinessException;
-import com.my.ecommerce.exception.DataNotFoundException;
+import com.my.ecommerce.global.exception.BusinessException;
+import com.my.ecommerce.global.exception.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +17,6 @@ public class UserService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
-  private final CartRepository cartRepository;
 
   //회원가입
   @Transactional

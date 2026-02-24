@@ -1,4 +1,4 @@
-package com.my.ecommerce.exception;
+package com.my.ecommerce.global.exception;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.my.ecommerce.cart.cartItem.CartItem;
 import com.my.ecommerce.cart.cartItem.CartItemRepository;
 import com.my.ecommerce.cart.cartItem.CartItemResponse;
-import com.my.ecommerce.exception.OutOfStockException;
+import com.my.ecommerce.global.exception.OutOfStockException;
 import com.my.ecommerce.product.Product;
 import com.my.ecommerce.product.ProductRepository;
 import com.my.ecommerce.user.User;
